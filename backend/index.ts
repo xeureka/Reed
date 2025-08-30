@@ -11,6 +11,7 @@ app.use(cors())
 app.use('/foryou',forYou)
 app.use('/summarize',summery)
 
-app.listen(3000, () => {
-  console.log('server running at port 3000')
+const PORT = process.env.PORT
+app.listen(PORT, () => {
+  console.log(`server running at port ${PORT}`)
 })
