@@ -25,7 +25,8 @@ function extractDomain(url?: string): string | undefined {
 }
 
 async function fetcher(jsonFileName: string, req: Request, res: Response) {
-  const limit = req.query.limit ? Number(req.query.limit) : 10;
+  // const limit = req.query.limit ? Number(req.query.limit) : 1000;
+  const limit = 10000
   try {
     const { data: storyIds } = await axios.get<number[]>(
       `${base_url}/${jsonFileName}.json`
