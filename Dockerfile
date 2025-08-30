@@ -1,21 +1,14 @@
-# Use official Bun image
-FROM oven/bun:1-alpine AS runtime
+FROM oven/bun:1-alpine
 
-# Set working directory
 WORKDIR /app
 
-# Copy package files
-COPY package.json .
-COPY bun.lockb .
+COPY backend/package.json .
+COPY backend/bun.lockb .
 
-# Install dependencies
 RUN bun install --frozen-lockfile --production
 
-# Copy source code
-COPY . .
+COPY backend/ .
 
-# Expose port
 EXPOSE 3001
 
-# Start the application
-CMD ["bun", "run", "src/index.ts"]
+CMD ["bun", "run", "index.ts"]
