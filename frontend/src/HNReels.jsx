@@ -1,4 +1,4 @@
-// src/HNReels.tsx
+// src/HNReels.js
 import React, {
   useCallback,
   useEffect,
@@ -8,25 +8,8 @@ import React, {
 } from "react";
 import axios from "axios";
 
-/* ----------------------------- Types ------------------------------ */
-export type FeedItem = {
-  id: number;
-  title: string;
-  url: string;
-  by: string;
-  score: number;
-  time: number; // unix seconds
-  summary?: string;
-  domain?: string;
-  descendants?: number; // comments count from HN
-};
-
-type StoryCardProps = {
-  item: FeedItem;
-};
-
 /* ---------------------------- Helpers ----------------------------- */
-function timeAgo(unixSeconds: number): string {
+function timeAgo(unixSeconds) {
   const diff = Math.max(0, Date.now() - unixSeconds * 1000);
   const mins = Math.floor(diff / 60000);
   if (mins < 1) return "just now";
@@ -39,7 +22,7 @@ function timeAgo(unixSeconds: number): string {
   return `${weeks}w ago`;
 }
 
-function domainFromUrl(url: string): string | undefined {
+function domainFromUrl(url) {
   try {
     const u = new URL(url);
     return u.hostname.replace(/^www\./, "");
@@ -48,20 +31,15 @@ function domainFromUrl(url: string): string | undefined {
   }
 }
 
-function fallbackSummarize(title: string, url: string): string {
+function fallbackSummarize(title, url) {
   const d = domainFromUrl(url) || "source";
   return `Fetching summary... Open on ${d} or tap Read to view the full article.`;
 }
 
-async function shareLink(
-  _title: string,
-  url: string
-): Promise<{ ok: true; copied?: true } | { ok: false }> {
+async function shareLink(_title, url) {
   if (navigator.share) {
     try {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      await navigator.share?.({ url });
+      await navigator.share({ url });
       return { ok: true };
     } catch {
       // user canceled or not available
@@ -76,17 +54,14 @@ async function shareLink(
 }
 
 /* ---------------------- Keyboard snap helper ---------------------- */
-function useArrowKeySnap(
-  containerRef: React.RefObject<HTMLDivElement>,
-  cardRefs: React.RefObject<HTMLDivElement>[]
-) {
+function useArrowKeySnap(containerRef, cardRefs) {
   useEffect(() => {
-    function onKeyDown(e: KeyboardEvent) {
+    function onKeyDown(e) {
       const container = containerRef.current;
       if (!container) return;
       const cards = cardRefs
         .map((r) => r.current)
-        .filter(Boolean) as HTMLDivElement[];
+        .filter(Boolean);
       if (!cards.length) return;
 
       const containerTop = container.getBoundingClientRect().top;
@@ -97,7 +72,7 @@ function useArrowKeySnap(
       let currentIndex = distances.indexOf(minDist);
       if (currentIndex === -1) currentIndex = 0;
 
-      const scrollToIndex = (idx: number) => {
+      const scrollToIndex = (idx) => {
         const el = cards[idx];
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       };
@@ -119,11 +94,7 @@ function useArrowKeySnap(
 }
 
 /* --------------------------- Components --------------------------- */
-const ActionIcon: React.FC<{
-  label: string;
-  onClick?: () => void;
-  children: React.ReactNode;
-}> = ({ label, onClick, children }) => (
+const ActionIcon = ({ label, onClick, children }) => (
   <button
     onClick={onClick}
     className="flex flex-col items-center gap-1 px-2 py-1 rounded-2xl hover:bg-white/10 active:scale-95 transition"
@@ -137,7 +108,7 @@ const ActionIcon: React.FC<{
 );
 
 const Icon = {
-  External: (props: React.SVGProps<SVGSVGElement>) => (
+  External: (props) => (
     <svg viewBox="0 0 24 24" fill="none" width={28} height={28} {...props}>
       <path
         d="M14 3h7v7"
@@ -160,7 +131,7 @@ const Icon = {
       />
     </svg>
   ),
-  Share: (props: React.SVGProps<SVGSVGElement>) => (
+  Share: (props) => (
     <svg viewBox="0 0 24 24" fill="none" width={28} height={28} {...props}>
       <path
         d="M21 12l-8-5v3H3v4h10v3l8-5z"
@@ -171,7 +142,7 @@ const Icon = {
       />
     </svg>
   ),
-  Comment: (props: React.SVGProps<SVGSVGElement>) => (
+  Comment: (props) => (
     <svg viewBox="0 0 24 24" fill="none" width={28} height={28} {...props}>
       <path
         d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z"
@@ -182,7 +153,7 @@ const Icon = {
       />
     </svg>
   ),
-  Points: (props: React.SVGProps<SVGSVGElement>) => (
+  Points: (props) => (
     <svg viewBox="0 0 24 24" fill="none" width={16} height={16} {...props}>
       <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
       <path
@@ -195,90 +166,88 @@ const Icon = {
   ),
 };
 
-const StoryCard = React.forwardRef<HTMLDivElement, StoryCardProps>(
-  function StoryCard({ item }, ref) {
-    const [copied, setCopied] = useState(false);
-    const hnItemUrl = `https://news.ycombinator.com/item?id=${item.id}`;
-    const domain = item.domain ?? domainFromUrl(item.url);
-    const summary = item.summary || fallbackSummarize(item.title, item.url);
+const StoryCard = React.forwardRef(function StoryCard({ item }, ref) {
+  const [copied, setCopied] = useState(false);
+  const hnItemUrl = `https://news.ycombinator.com/item?id=${item.id}`;
+  const domain = item.domain ?? domainFromUrl(item.url);
+  const summary = item.summary || fallbackSummarize(item.title, item.url);
 
-    const onShare = useCallback(async () => {
-      const result = await shareLink(item.title, item.url || hnItemUrl);
-      if (result.ok) {
-        setCopied(true);
-        window.setTimeout(() => setCopied(false), 1500);
-      }
-    }, [item.title, item.url, hnItemUrl]);
+  const onShare = useCallback(async () => {
+    const result = await shareLink(item.title, item.url || hnItemUrl);
+    if (result.ok) {
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1500);
+    }
+  }, [item.title, item.url, hnItemUrl]);
 
-    return (
-      <section ref={ref} className="h-screen w-full snap-start relative">
-        <div className="absolute inset-0">
-          <div className="w-full h-full animate-gradient bg-gradient-to-tr from-purple-700 via-pink-600 to-yellow-500 opacity-40" />
-          <img
-            src={`https://source.unsplash.com/random/800x1200/?technology,ai,abstract`}
-            alt="background"
-            className="w-full h-full object-cover opacity-30 mix-blend-overlay"
-          />
-        </div>
-        <div className="absolute inset-0 flex items-center justify-center p-3">
-          <div className="relative w-full max-w-[680px] h-[86vh] rounded-2xl bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 p-4 flex items-center gap-2 bg-gradient-to-b from-black/60 to-transparent">
-              <span className="px-2 py-0.5 text-[10px] rounded-full bg-white/10">
-                {domain ?? "link"}
-              </span>
-              <span className="text-xs opacity-80">by {item.by}</span>
-              <span className="text-xs opacity-60 ml-auto">
-                {timeAgo(item.time)}
-              </span>
-            </div>
-            <div className="absolute top-12 bottom-20 left-0 right-16 overflow-y-auto px-5 py-4 space-y-4">
-              <h2 className="text-xl md:text-2xl font-semibold leading-tight">
-                {item.title}
-              </h2>
-              <div className="text-sm bg-white/10 p-3 rounded-xl backdrop-blur-md whitespace-pre-line leading-relaxed">
-                {summary}
-              </div>
-            </div>
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3">
-              <ActionIcon
-                label="Read"
-                onClick={() => window.open(item.url || hnItemUrl, "_blank")}
-              >
-                <Icon.External />
-              </ActionIcon>
-              <ActionIcon label={copied ? "Copied" : "Share"} onClick={onShare}>
-                <Icon.Share />
-              </ActionIcon>
-              <ActionIcon
-                label={`${item.descendants ?? 0} Comments`}
-                onClick={() => window.open(hnItemUrl, "_blank")}
-              >
-                <Icon.Comment />
-              </ActionIcon>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs opacity-80">
-                <Icon.Points />
-                <span>{item.score} points</span>
-              </div>
-              <div className="text-xs opacity-70">Use ↑ / ↓ to flip cards</div>
+  return (
+    <section ref={ref} className="h-screen w-full snap-start relative">
+      <div className="absolute inset-0">
+        <div className="w-full h-full animate-gradient bg-gradient-to-tr from-purple-700 via-pink-600 to-yellow-500 opacity-40" />
+        <img
+          src={`https://source.unsplash.com/random/800x1200/?technology,ai,abstract`}
+          alt="background"
+          className="w-full h-full object-cover opacity-30 mix-blend-overlay"
+        />
+      </div>
+      <div className="absolute inset-0 flex items-center justify-center p-3">
+        <div className="relative w-full max-w-[680px] h-[86vh] rounded-2xl bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 p-4 flex items-center gap-2 bg-gradient-to-b from-black/60 to-transparent">
+            <span className="px-2 py-0.5 text-[10px] rounded-full bg-white/10">
+              {domain ?? "link"}
+            </span>
+            <span className="text-xs opacity-80">by {item.by}</span>
+            <span className="text-xs opacity-60 ml-auto">
+              {timeAgo(item.time)}
+            </span>
+          </div>
+          <div className="absolute top-12 bottom-20 left-0 right-16 overflow-y-auto px-5 py-4 space-y-4">
+            <h2 className="text-xl md:text-2xl font-semibold leading-tight">
+              {item.title}
+            </h2>
+            <div className="text-sm bg-white/10 p-3 rounded-xl backdrop-blur-md whitespace-pre-line leading-relaxed">
+              {summary}
             </div>
           </div>
+          <div className="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3">
+            <ActionIcon
+              label="Read"
+              onClick={() => window.open(item.url || hnItemUrl, "_blank")}
+            >
+              <Icon.External />
+            </ActionIcon>
+            <ActionIcon label={copied ? "Copied" : "Share"} onClick={onShare}>
+              <Icon.Share />
+            </ActionIcon>
+            <ActionIcon
+              label={`${item.descendants ?? 0} Comments`}
+              onClick={() => window.open(hnItemUrl, "_blank")}
+            >
+              <Icon.Comment />
+            </ActionIcon>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent flex items-center justify-between">
+            <div className="flex items-center gap-2 text-xs opacity-80">
+              <Icon.Points />
+              <span>{item.score} points</span>
+            </div>
+            <div className="text-xs opacity-70">Use ↑ / ↓ to flip cards</div>
+          </div>
         </div>
-      </section>
-    );
-  }
-);
+      </div>
+    </section>
+  );
+});
 
 /* ----------------------------- Main ------------------------------- */
-export default function HNReels(): JSX.Element {
-  const [items, setItems] = useState<FeedItem[]>([]);
+export default function HNReels() {
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef(null);
   const cardRefs = useMemo(
-    () => items.map(() => React.createRef<HTMLDivElement>()),
-    [items.length]
+    () => items.map(() => React.createRef()),
+    [items]
   );
 
   useArrowKeySnap(containerRef, cardRefs);
@@ -286,38 +255,37 @@ export default function HNReels(): JSX.Element {
   useEffect(() => {
     const fetchStories = async () => {
       try {
-        const res = await axios.get<FeedItem[]>(
-          `${import.meta.env.VITE_API_URL}/foryou/new?limit=10`
+        // Use import.meta.env for Vite (not process.env)
+        const apiUrl = import.meta.env?.VITE_API_URL || 'http://localhost:3001';
+        const res = await axios.get(
+          `${apiUrl}/foryou/new?limit=10`
         );
         const stories = res.data.map((s) => ({
           ...s,
           domain: domainFromUrl(s.url),
-          summary: fallbackSummarize(s.title, s.url), // Set initial fallback summary
+          summary: fallbackSummarize(s.title, s.url),
         }));
 
         setItems(stories);
 
-        // Fetch summaries for each story
         const summaryPromises = stories.map(async (story) => {
           if (!story.url) return story;
 
           try {
             const sumRes = await axios.get(
-              `${import.meta.env.VITE_API_URL}/summarize`,
+              `${apiUrl}/summarize`,
               {
                 params: { url: story.url },
-                timeout: 10000 // 10 second timeout
+                timeout: 10000
               }
             );
             return { ...story, summary: sumRes.data.summary };
-          } catch (err: any) {
+          } catch (err) {
             console.error("Failed to summarize:", story.url, err);
-            // Keep the fallback summary if summarization fails
             return story;
           }
         });
 
-        // Wait for all summaries to complete
         const storiesWithSummaries = await Promise.all(summaryPromises);
         setItems(storiesWithSummaries);
       } catch (err) {
