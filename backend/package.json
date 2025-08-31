@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "bun run --watch index.ts",
-    "start": "bun run --watch index.ts"
+    "start": "bun run index.ts",
+    "build": "bun build --outdir dist index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",

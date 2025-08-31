@@ -15,3 +15,6 @@ const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`server running at port ${PORT}`)
 })
+
+// depoy the backend
+// thinking about the biggest system design and workin on it

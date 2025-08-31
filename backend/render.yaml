@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: blog-aggregator-backend
+    env: docker
+    docker:
+      dockerfile: Dockerfile
+      dockerContext: ./backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+    plan: free
+    numInstances: 1
+    healthCheckPath: /health
+    autoDeploy: true
