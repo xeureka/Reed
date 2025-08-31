@@ -3,11 +3,13 @@ services:
     name: blog-aggregator-backend
     env: docker
     docker:
-      dockerfile: Dockerfile
-      dockerContext: ./backend
+      dockerfile: ./backend/Dockerfile
+      dockerContext: .
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 3000
     plan: free
     numInstances: 1
     healthCheckPath: /health
