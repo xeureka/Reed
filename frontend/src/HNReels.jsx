@@ -59,9 +59,7 @@ function useArrowKeySnap(containerRef, cardRefs) {
     function onKeyDown(e) {
       const container = containerRef.current;
       if (!container) return;
-      const cards = cardRefs
-        .map((r) => r.current)
-        .filter(Boolean);
+      const cards = cardRefs.map((r) => r.current).filter(Boolean);
       if (!cards.length) return;
 
       const containerTop = container.getBoundingClientRect().top;
@@ -255,11 +253,10 @@ export default function HNReels() {
   useEffect(() => {
     const fetchStories = async () => {
       try {
-        // Use import.meta.env for Vite (not process.env)
-        const apiUrl = import.meta.env?.VITE_API_URL || 'http://localhost:3001';
-        const res = await axios.get(
-          `${apiUrl}/foryou/new?limit=10`
-        );
+        const apiUrl =
+          import.meta.env.VITE_API_URL || "https://reed-jhcj.onrender.com";
+
+        const res = await axios.get(`${apiUrl}/foryou/new?limit=10`);
         const stories = res.data.map((s) => ({
           ...s,
           domain: domainFromUrl(s.url),
@@ -272,13 +269,10 @@ export default function HNReels() {
           if (!story.url) return story;
 
           try {
-            const sumRes = await axios.get(
-              `${apiUrl}/summarize`,
-              {
-                params: { url: story.url },
-                timeout: 10000
-              }
-            );
+            const sumRes = await axios.get(`${apiUrl}/summarize`, {
+              params: { url: story.url },
+              timeout: 10000,
+            });
             return { ...story, summary: sumRes.data.summary };
           } catch (err) {
             console.error("Failed to summarize:", story.url, err);

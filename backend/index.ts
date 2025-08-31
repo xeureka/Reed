@@ -1,20 +1,28 @@
-import express from 'express'
-import cors from 'cors'
-import forYou from './routes/foryou.routes'
-import summery from './routes/summery.routes'
+import express from "express";
+import cors from "cors";
+import forYou from "./routes/foryou.routes";
+import summery from "./routes/summery.routes";
 
-const app = express()
+const app = express();
 
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://reed-three.vercel.app", 
+];
 
-app.use('/foryou',forYou)
-app.use('/summarize',summery)
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.includes(origin)) cb(null, true);
+    else cb(new Error("Not allowed by CORS"));
+  },
+  credentials: true
+}));
 
-const PORT = process.env.PORT
+app.use("/foryou", forYou);
+app.use("/summarize", summery);
+
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
-  console.log(`server running at port ${PORT}`)
-})
-
-// depoy the backend
-// thinking about the biggest system design and workin on it
+  console.log(`server running at port ${PORT}`);
+});
