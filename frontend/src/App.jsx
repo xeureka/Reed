@@ -1,6 +1,6 @@
 import React from 'react';
 import { Analytics } from '@vercel/analytics/react';
-import HNReels from './HNReels';
+import HNReels from './components/HNReels';
 
 function App() {
   return (

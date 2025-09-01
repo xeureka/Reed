@@ -69,3 +69,4 @@ export const fetchTopStories = async (req: Request, res: Response) => {
 export const fetchBestStories = async (req: Request, res: Response) => {
   await fetcher("beststories", req, res);
 };
+
