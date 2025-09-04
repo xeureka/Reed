@@ -16,7 +16,7 @@ Imagine scrolling through the latest tech news, developer blogs, and hacker stor
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** TypeScript, React, CSS, HTML
+- **Frontend:** TypeScript, React, Tailwind css
 - **Backend:** TypeScript, Bun
 - **API Integrations:** Hacker News, popular tech blogs
 
