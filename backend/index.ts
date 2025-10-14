@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://reed-three.vercel.app", 
+  "https://reed-three.vercel.app",
 ];
 
 app.use(cors({
