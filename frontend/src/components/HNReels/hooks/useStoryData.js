@@ -23,11 +23,11 @@ export function useStoryData() {
       const res = await axios.get(`${apiUrl}/foryou/new`, {
         params: {
           page: page,
-          limit: 10  // You can make this configurable
+          limit: 10  // configurable limit
         }
       });
 
-      // Assuming your backend now returns { stories, pagination }
+      // backend returns { stories, pagination }
       const { stories, pagination } = res.data;
 
       // Process stories - add domain and fallback summary
@@ -37,7 +37,7 @@ export function useStoryData() {
         summary: fallbackSummarize(s.title, s.url),
       }));
 
-      // Update items based on whether we're loading more or refreshing
+      // Update items based on whether were loading more or refreshing
       if (isLoadMore) {
         setItems(prev => [...prev, ...processedStories]);
       } else {
