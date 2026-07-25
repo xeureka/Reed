@@ -1,11 +1,15 @@
 import { useEffect } from "react";
+import type { RefObject } from "react";
 
-export function useArrowKeySnap(containerRef, cardRefs) {
+export function useArrowKeySnap(
+  containerRef: RefObject<HTMLDivElement | null>,
+  cardRefs: RefObject<HTMLElement | null>[]
+): void {
   useEffect(() => {
-    function onKeyDown(e) {
+    function onKeyDown(e: KeyboardEvent): void {
       const container = containerRef.current;
       if (!container) return;
-      const cards = cardRefs.map((r) => r.current).filter(Boolean);
+      const cards = cardRefs.map((r) => r.current).filter(Boolean) as HTMLElement[];
       if (!cards.length) return;
 
       const containerTop = container.getBoundingClientRect().top;
@@ -16,7 +20,7 @@ export function useArrowKeySnap(containerRef, cardRefs) {
       let currentIndex = distances.indexOf(minDist);
       if (currentIndex === -1) currentIndex = 0;
 
-      const scrollToIndex = (idx) => {
+      const scrollToIndex = (idx: number): void => {
         const el = cards[idx];
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       };

@@ -1,4 +1,6 @@
-export function domainFromUrl(url) {
+import type { ShareResult } from '../../types';
+
+export function domainFromUrl(url: string): string | undefined {
   try {
     const u = new URL(url);
     return u.hostname.replace(/^www\./, "");
@@ -7,12 +9,12 @@ export function domainFromUrl(url) {
   }
 }
 
-export function fallbackSummarize(title, url) {
+export function fallbackSummarize(title: string, url: string): string {
   const d = domainFromUrl(url) || "source";
   return `Fetching summary... Open on ${d} or tap Read to view the full article.`;
 }
 
-export async function shareLink(_title, url) {
+export async function shareLink(_title: string, url: string): Promise<ShareResult> {
   if (navigator.share) {
     try {
       await navigator.share({ url });

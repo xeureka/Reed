@@ -1,4 +1,8 @@
-export const Icon = {
+import type { SVGProps, ReactElement } from "react";
+
+type IconComponent = (props: SVGProps<SVGSVGElement>) => ReactElement;
+
+export const Icon: Record<string, IconComponent> = {
   External: (props) => (
     <svg viewBox="0 0 24 24" fill="none" width={28} height={28} {...props}>
       <path

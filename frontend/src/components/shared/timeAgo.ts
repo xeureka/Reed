@@ -1,4 +1,4 @@
-export function timeAgo(unixSeconds) {
+export function timeAgo(unixSeconds: number): string {
   const diff = Math.max(0, Date.now() - unixSeconds * 1000);
   const mins = Math.floor(diff / 60000);
   if (mins < 1) return "just now";

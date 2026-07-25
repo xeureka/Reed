@@ -5,9 +5,9 @@ import Header from "./Header";
 
 const HNReels = () => {
   const { items, loading, loadingMore, hasMore, loadMore } = useStoryData();
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useMemo(
-    () => items.map(() => React.createRef()),
+    () => items.map(() => React.createRef<HTMLElement>()),
     [items]
   );
 

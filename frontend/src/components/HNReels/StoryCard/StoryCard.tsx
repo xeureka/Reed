@@ -1,14 +1,20 @@
 import React, { useState, useCallback } from "react";
+import type { ForwardedRef } from "react";
 import { domainFromUrl, fallbackSummarize, shareLink } from "../../shared/helpers";
 import { timeAgo } from "../../shared/timeAgo";
 import { ActionIcon } from "./ActionIcon";
 import { Icon } from "./Icons";
+import type { StoryItem } from "../../../types";
 
-const StoryCard = React.forwardRef(function StoryCard({ item }, ref) {
-  const [copied, setCopied] = useState(false);
-  const hnItemUrl = `https://news.ycombinator.com/item?id=${item.id}`;
-  const domain = item.domain ?? domainFromUrl(item.url);
-  const summary = item.summary || fallbackSummarize(item.title, item.url);
+interface StoryCardProps {
+  item: StoryItem;
+}
+
+const StoryCard = React.forwardRef<HTMLElement, StoryCardProps>(function StoryCard({ item }, ref) {
+  const [copied, setCopied] = useState<boolean>(false);
+  const hnItemUrl: string = `https://news.ycombinator.com/item?id=${item.id}`;
+  const domain: string | undefined = item.domain ?? domainFromUrl(item.url);
+  const summary: string = item.summary || fallbackSummarize(item.title, item.url);
 
   const onShare = useCallback(async () => {
     const result = await shareLink(item.title, item.url || hnItemUrl);
@@ -19,7 +25,7 @@ const StoryCard = React.forwardRef(function StoryCard({ item }, ref) {
   }, [item.title, item.url, hnItemUrl]);
 
   return (
-    <section ref={ref} className="h-screen w-full snap-start relative">
+    <section ref={ref as ForwardedRef<HTMLElement>} className="h-screen w-full snap-start relative">
       <div className="absolute inset-0">
         <div className="w-full h-full animate-gradient bg-gradient-to-tr from-purple-700 via-pink-600 to-yellow-500 opacity-40" />
         <img
