@@ -1,0 +1,26 @@
+{
+  "name": "blog-aggregator",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch index.ts",
+    "start": "tsx index.ts",
+    "build": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@mozilla/readability": "^0.6.0",
+    "axios": "^1.11.0",
+    "cheerio": "^1.1.2",
+    "cors": "^2.8.5",
+    "dotenv": "^18.0.10",
+    "express": "^5.1.0",
+    "linkedom": "^0.18.15"
+  }
+}

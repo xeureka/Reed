@@ -1,0 +1,9 @@
+{
+  "name": "Reed — Read what matters",
+  "short_name": "Reed",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111210",
+  "theme_color": "#111210",
+  "icons": [{ "src": "/reed-logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
