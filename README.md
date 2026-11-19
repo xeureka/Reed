@@ -1,179 +1,79 @@
+<p align="center"><img src="apps/frontend/public/reed-logo.svg" alt="Reed logo" width="72"></p>
+
 # Reed
 
-> **Stop doom-scrolling. Start smart-scrolling.**
+Reed is a focused reading stream for the gaps while your coding agent runs. It turns Hacker News, Lobsters, DEV Community, Reddit, and engineering blogs into swipeable cards with quick summaries and direct links to the original stories.
 
-Reed transforms the way you consume tech news. It takes stories from Hacker News and top tech blogs and delivers them as full-screen, swipeable cards — think TikTok, but for developer content. Each story gets an AI-extracted summary, so you can decide what's worth your time without ever leaving the feed.
+## Features
 
-**Live:** [reed-three.vercel.app](https://reed-three.vercel.app)
+- Full-screen, snap-scrolling reading feed
+- Aggregated stories from five developer-focused sources
+- Fast local summaries with optional Gemini article summaries
+- Infinite loading, keyboard navigation, sharing, and responsive mobile UI
+- Cached GitHub star count and source branding
 
----
+## Tech stack
 
-## Why Reed?
+- Frontend: React 19, TypeScript, Vite, Tailwind CSS, React Query
+- Backend: Node.js, Express, TypeScript, Axios, Cheerio
+- Deployment: Vercel-compatible frontend, Docker/Render-compatible backend
 
-The average developer misses valuable stories because long-form feeds don't fit how we actually consume content anymore. Reed solves this with a **vertical snap-scroll interface** — one story per screen, swipe to move on. Background summarization means you never wait for content to load.
+## Structure
 
----
-
-## Tech Stack
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    REED ARCHITECTURE                     │
-├──────────────┬──────────────────────────────────────────┤
-│   FRONTEND   │  React 19 · TypeScript · Vite 7 ·       │
-│              │  Tailwind CSS 4 · Axios · Web Share API  │
-├──────────────┼──────────────────────────────────────────┤
-│   BACKEND    │  Bun · Express 5 · TypeScript ·          │
-│              │  Cheerio (scraping) · extractive-summarize│
-├──────────────┼──────────────────────────────────────────┤
-│   DEPLOY     │  Vercel (FE) · Render (BE) · Docker      │
-└──────────────┴──────────────────────────────────────────┘
+```text
+apps/
+├── frontend/   # Vite React application
+└── backend/    # Express API and source aggregation
 ```
 
-**Key libraries:**
-- **React 19** — latest concurrent features for smooth UI
-- **Vite 7** — instant HMR, native TypeScript support
-- **Tailwind CSS 4** — utility-first styling via Vite plugin
-- **Bun** — fast JS/TS runtime for the backend
-- **Cheerio** — server-side HTML parsing for article scraping
-- **extractive-summarize** — sentence-level summary generation
+## Setup
 
----
-
-## How It Works
-
-```
-Hacker News API
-       │
-       ▼
-┌──────────────┐      ┌──────────────┐
-│  Express API │─────▶│  Cheerio +   │
-│  /foryou/*   │      │  Summarizer  │
-└──────┬───────┘      └──────────────┘
-       │
-       ▼
-┌──────────────┐
-│  React SPA   │  ◀──  Snap scroll + infinite pagination
-│  Vite + TW4  │
-└──────────────┘
-```
-
-1. **Backend** fetches and paginates Hacker News stories (`/foryou/new`, `/top`, `/best`)
-2. **Frontend** renders stories as full-screen cards with CSS `snap-y snap-mandatory`
-3. **Summaries** are fetched in the background per card — no blocking initial load
-4. **Keyboard nav** — Arrow Up/Down snaps between cards
-
----
-
-## Project Structure
-
-```
-Reed/
-├── backend/
-│   ├── index.ts                          # Express app entry
-│   ├── controllers/foryou.controller.ts  # HN API fetcher + pagination
-│   ├── routes/
-│   │   ├── foryou.routes.ts              # /foryou/{new,top,best}
-│   │   └── summery.routes.ts            # /summarize?url=
-│   ├── utils/db.connect.ts              # MongoDB util (planned)
-│   └── Dockerfile                        # Alpine Bun image
-│
-├── frontend/
-│   ├── src/
-│   │   ├── App.tsx                       # Root component
-│   │   ├── types.ts                      # Shared TypeScript types
-│   │   └── components/
-│   │       ├── HNReels/
-│   │       │   ├── HNReels.tsx           # Main feed (snap scroll + infinite load)
-│   │       │   ├── Header/              # Gradient header bar
-│   │       │   ├── StoryCard/           # Full-screen story card
-│   │       │   └── hooks/
-│   │       │       ├── useStoryData.ts   # Fetch + pagination + background summaries
-│   │       │       └── useArrowKeySnap.ts # Keyboard navigation
-│   │       └── shared/
-│   │           ├── helpers.ts            # domainFromUrl, shareLink, fallbackSummarize
-│   │           └── timeAgo.ts           # Timestamp formatter
-│   └── vite.config.ts
-│
-└── README.md
-```
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- [Bun](https://bun.sh/) (backend)
-- [Node.js](https://nodejs.org/) + [pnpm](https://pnpm.io/) (frontend)
-
-### 1. Clone & install
+Requirements: Node.js 22+ and pnpm.
 
 ```bash
 git clone https://github.com/xeureka/Reed.git
 cd Reed
-
-# Backend
-cd backend && bun install
-
-# Frontend
-cd ../frontend && pnpm install
+pnpm install
+pnpm dev
 ```
 
-### 2. Configure environment
+The frontend runs on `http://localhost:5174` and the API on `http://localhost:3001`.
+
+Run checks from the repository root:
 
 ```bash
-# frontend/.env
-VITE_API_URL=http://localhost:3000
+pnpm build
+pnpm lint
+pnpm typecheck
 ```
 
-### 3. Run
+## Environment variables
+
+Create `apps/frontend/.env.local` when the API is not running on the default local port:
 
 ```bash
-# Terminal 1 — Backend
-cd backend && bun run dev
-
-# Terminal 2 — Frontend
-cd frontend && pnpm run dev
+VITE_API_URL=http://localhost:3001
 ```
 
-Open [http://localhost:5173](http://localhost:5173).
+Optional backend variables:
 
----
+```bash
+PORT=3001
+CORS_ORIGINS=http://localhost:5174,http://localhost:5173
+GEMINI_API_KEY=your-key
+GEMINI_MODEL=gemini-2.0-flash-lite
+```
 
-## API Reference
+## API
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/foryou/new?page=1&limit=10` | New HN stories (paginated) |
-| `GET` | `/foryou/top?page=1&limit=10` | Top HN stories (paginated) |
-| `GET` | `/foryou/best?page=1&limit=10` | Best HN stories (paginated) |
-| `GET` | `/summarize?url=<article-url>` | Scrape + summarize an article |
-
----
+| Endpoint | Purpose |
+| --- | --- |
+| `GET /health` | Health check |
+| `GET /api/feed?source=&page=1` | Normalized, cached multi-source feed |
+| `GET /api/summary?url=<article-url>` | Cached Gemini or extractive summary |
 
 ## Contributing
 
-Contributions are welcome. Here's how to get started:
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, branch, commit, and pull request conventions.
 
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feat/your-feature`)
-3. **Commit** with clear messages
-4. **Push** and open a **Pull Request**
-
-### Areas to contribute
-
-- [ ] LLM-powered summaries (OpenAI SDK is installed, awaiting integration)
-- [ ] User accounts and favorites (MongoDB connection util exists)
-- [ ] Additional feed sources beyond Hacker News
-- [ ] Backend test coverage (currently none)
-- [ ] Dark/light theme toggle
-- [ ] Frontend consumption of `/top` and `/best` endpoints
-- [ ] Health check endpoint for Render deployment
-- [ ] Accessibility improvements (screen reader support, focus management)
-
----
-
-## License
-
-MIT
+Launch copy is collected in [docs/launch-posts.md](docs/launch-posts.md).

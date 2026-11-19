@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Reed</title>
+  <rect width="64" height="64" rx="18" fill="#c9dca8"/>
+  <path d="M19 16h14.5c8.1 0 12.8 4.2 12.8 10.7 0 4.6-2.6 8.1-7.1 9.7L48 48h-9.1l-7.2-10.5h-4.8V48H19V16Zm8 6.8v8h6.1c3.3 0 5.1-1.3 5.1-4s-1.8-4-5.1-4H27Z" fill="#111210"/>
+</svg>
