@@ -33,8 +33,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outlin
 .landing-shell { min-height: 100dvh; overflow: hidden; padding: 0 var(--space) 24px; color: var(--ink); background: var(--paper); }
 .masthead, .hero-section, .source-marquee, .how-section, .feature-section, .why-section, .final-cta, .landing-footer { width: min(100%, 1280px); margin-inline: auto; }
 .issue-line { display: flex; justify-content: space-between; border-bottom: 1px solid var(--rule); padding: 9px 0; color: var(--muted); font: 9px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-.landing-nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; border-bottom: 3px double var(--rule); padding: 17px 0; }
-.brand-lockup, .reader-title { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); font: 700 20px var(--serif); letter-spacing: -.04em; }
+.landing-nav { display: grid; grid-template-columns: minmax(0, 1fr) auto 1fr; align-items: center; gap: 24px; border-bottom: 3px double var(--rule); padding: 17px 0; }
+.brand-lockup, .reader-title { display: inline-flex; min-width: 0; align-items: center; gap: 9px; color: var(--ink); font: 700 20px var(--serif); letter-spacing: -.04em; white-space: nowrap; }
 .brand-logo { display: block; width: 30px; height: 30px; }
 .small-mark { width: 25px; height: 25px; }
 .landing-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font: 10px var(--mono); text-transform: uppercase; }
@@ -267,16 +267,23 @@ html.js .reveal.is-revealed .feature-grid > *:nth-child(4) { animation-delay: .2
 @keyframes source-marquee { to { transform: translateX(-50%); } }
 
 @media (max-width: 767px) {
-  .landing-nav { position: relative; }
+  .landing-nav { position: relative; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
   .mobile-menu-button { display: grid; }
   .landing-links { display: none; position: absolute; top: calc(100% + 1px); right: 0; left: 0; z-index: 8; flex-direction: column; align-items: stretch; gap: 0; border: 1px solid var(--rule); padding: 6px; background: var(--paper); }
   .landing-links.open { display: flex; }
   .landing-links a { min-height: 44px; padding: 0 12px; border-bottom: 1px solid color-mix(in srgb, var(--rule) 35%, transparent); }
   .landing-links a:last-child { border-bottom: 0; }
   .github-star-label { display: none; }
-  .github-star { padding: 0 8px; }
+  .github-star { gap: 5px; padding: 0 6px; }
+  .github-star-github { width: 15px; height: 15px; }
+  .github-star-icon { width: 13px; height: 13px; }
   .source-marquee { align-items: center; flex-direction: row; gap: 14px; }
   .marquee-label { width: 77px; flex: 0 0 77px; line-height: 1.2; }
+}
+
+@media (max-width: 360px) {
+  .nav-button { width: 40px; padding-inline: 0; font-size: 0; gap: 0; }
+  .nav-button svg { width: 16px; height: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
