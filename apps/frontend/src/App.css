@@ -112,7 +112,6 @@ h1 em, h2 em { color: var(--accent); font-style: italic; font-weight: 400; }
 .feature-grid article:nth-child(even) { background: color-mix(in srgb, var(--paper) 38%, transparent); }
 
 .why-section { display: grid; grid-template-columns: 1fr 1.35fr; align-items: center; gap: 60px; padding: 135px clamp(20px, 8vw, 120px); }
-.why-mark { display: grid; width: min(28vw, 260px); aspect-ratio: 1; place-items: center; border: 1px solid var(--rule); color: var(--paper); background: var(--accent); font: italic 12rem/.8 var(--display); transform: rotate(-5deg); }
 .why-section > div:last-child { max-width: 680px; }
 .why-section > div:last-child > p { max-width: 500px; margin: 28px 0; font-size: 20px; }
 .text-button { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; border: 0; padding: 0; color: var(--accent); background: transparent; font: 700 11px var(--mono); text-transform: uppercase; }
@@ -190,7 +189,6 @@ h1 em, h2 em { color: var(--accent); font-style: italic; font-weight: 400; }
   .hero-preview { width: min(100%, 460px); margin: 0 auto; }
   .how-section, .wait-section, .gap-section { gap: 45px; padding: 85px 0; }
   .why-section { gap: 48px; padding: 90px 0; }
-  .why-mark { width: 140px; font-size: 7rem; }
   .feed-controls { align-items: flex-start; flex-direction: column; gap: 6px; }
   .feed-scroller { padding-top: 137px; }
 }
@@ -278,39 +276,15 @@ h1 em, h2 em { color: var(--accent); font-style: italic; font-weight: 400; }
   .source-list[aria-hidden='true'] { display: none; }
 }
 
-body, .landing-shell, .reader-shell, .story-shell, .feature-section, .source-marquee, .why-mark { transition: background-color .25s ease, color .25s ease, border-color .25s ease; }
-.why-mark-stage { position: relative; display: grid; width: min(28vw, 260px); aspect-ratio: 1; place-items: center; }
-.why-mark-stage::after { position: absolute; right: 8%; bottom: 1%; left: 8%; z-index: 0; height: 13px; border-radius: 50%; background: var(--ink); content: ''; opacity: 0; transform: scaleX(.2); filter: blur(7px); }
-.why-mark-stage .why-mark { position: relative; z-index: 1; width: 100%; }
-.why-section:not(.is-visible) .why-mark-stage .why-mark { opacity: 0; transform: translateY(22px) rotate(-9deg) scale(.94); }
-.why-section.is-visible .why-mark-stage .why-mark { animation: why-card-in .8s cubic-bezier(.22, .9, .3, 1) both; will-change: transform, opacity; }
-.why-section.is-visible .why-mark-stage::after { animation: why-shadow-in .8s ease-out both; }
-.why-section:not(.is-visible) .why-copy > * { opacity: 0; transform: translateY(12px); }
-.why-section.is-visible .why-copy > * { animation: why-copy-line .42s ease-out both; }
-.why-section.is-visible .why-copy > *:nth-child(1) { animation-delay: .16s; }
-.why-section.is-visible .why-copy > *:nth-child(2) { animation-delay: .23s; }
-.why-section.is-visible .why-copy > *:nth-child(3) { animation-delay: .31s; }
-.why-section.is-visible .why-copy > *:nth-child(4) { animation-delay: .4s; }
-.why-mark-stage:hover .why-mark { transform: translateY(-4px) rotate(-3.5deg); }
-.why-mark-stage:active .why-mark { transform: translateY(-2px) rotate(-6deg) scale(.99); }
-.why-section.is-visible .why-mark-stage:hover .why-mark { animation: none; }
-@keyframes why-card-in {
-  0% { opacity: 0; transform: translateY(22px) rotate(-9deg) scale(.94); }
-  58% { opacity: 1; transform: translateY(-5px) rotate(-3.5deg) scale(1.015); }
-  78% { transform: translateY(2px) rotate(-5.7deg) scale(.995); }
-  100% { opacity: 1; transform: translateY(0) rotate(-5deg) scale(1); }
-}
-@keyframes why-shadow-in { 0% { opacity: 0; transform: scaleX(.45); } 60% { opacity: .12; transform: scaleX(.85); } 100% { opacity: .22; transform: scaleX(1); } }
-@keyframes why-copy-line { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes why-fade-in { from { opacity: 0; } to { opacity: 1; } }
+body, .landing-shell, .reader-shell, .story-shell, .feature-section, .source-marquee { transition: background-color .25s ease, color .25s ease, border-color .25s ease; }
+.why-section.reveal { opacity: 1; transform: none; }
+.why-mark-stage { display: grid; width: min(28vw, 260px); place-items: center; }
+.why-logo { width: 100%; height: auto; }
 ::view-transition-old(root) { animation: none; mix-blend-mode: normal; }
 ::view-transition-new(root) { animation: theme-reveal .55s ease-in-out both; mix-blend-mode: normal; }
 @keyframes theme-reveal { from { clip-path: circle(0 at var(--theme-x) var(--theme-y)); } to { clip-path: circle(var(--theme-radius) at var(--theme-x) var(--theme-y)); } }
 
 @media (max-width: 620px) { .why-mark-stage { width: 140px; } }
 @media (prefers-reduced-motion: reduce) {
-  .why-section:not(.is-visible) .why-mark-stage .why-mark { opacity: 1; transform: rotate(-5deg); }
-  .why-section.is-visible .why-mark-stage .why-mark, .why-section.is-visible .why-mark-stage::after { animation: none; }
-  .why-section:not(.is-visible) .why-copy > *, .why-section.is-visible .why-copy > * { animation: none; opacity: 1; transform: none; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }
