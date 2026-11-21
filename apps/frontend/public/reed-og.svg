@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">Your agent is coding. Go read something. — Reed</title>
-  <desc id="desc">Reed is a swipeable tech-news feed for the minutes your coding agent takes to finish.</desc>
+  <title id="title">Scroll less. Read more. — Reed</title>
+  <desc id="desc">Reed is a TikTok-style feed for reading.</desc>
   <rect width="1200" height="630" fill="#f3ebdd"/>
   <path d="M54 74H1146M54 88H1146M54 548H1146M54 562H1146" stroke="#2c2822" stroke-width="2"/>
-  <text x="60" y="58" fill="#201d19" font-family="monospace" font-size="18" font-weight="700" letter-spacing="5">REED / AGENT GAP EDITION</text>
+  <text x="60" y="58" fill="#201d19" font-family="monospace" font-size="18" font-weight="700" letter-spacing="5">REED / READING EDITION</text>
   <text x="1140" y="58" text-anchor="end" fill="#c94732" font-family="monospace" font-size="18" font-weight="700">VOL. 1 · NO. 47</text>
   <rect x="930" y="150" width="170" height="170" rx="3" fill="#c94732" transform="rotate(-5 1015 235)"/>
   <text x="1015" y="285" text-anchor="middle" fill="#f3ebdd" font-family="Georgia, serif" font-size="152" font-style="italic" font-weight="700">R</text>
   <text x="60" y="190" fill="#c94732" font-family="monospace" font-size="18" font-weight="700" letter-spacing="4">THE WAIT IS NOT EMPTY</text>
-  <text x="60" y="286" fill="#201d19" font-family="Georgia, serif" font-size="76" font-weight="700">Your agent is coding.</text>
-  <text x="60" y="370" fill="#201d19" font-family="Georgia, serif" font-size="76" font-weight="700" font-style="italic">Go read something.</text>
-  <text x="60" y="455" fill="#756b5e" font-family="monospace" font-size="22">Stop doom-scrolling. Start smart-scrolling.</text>
-  <text x="60" y="600" fill="#201d19" font-family="monospace" font-size="17" letter-spacing="2">SWIPEABLE TECH NEWS · HN · LOBSTERS · DEV · REDDIT · ENGINEERING BLOGS</text>
+  <text x="60" y="286" fill="#201d19" font-family="Georgia, serif" font-size="76" font-weight="700">Scroll less.</text>
+  <text x="60" y="370" fill="#201d19" font-family="Georgia, serif" font-size="76" font-weight="700" font-style="italic">Read more.</text>
+  <text x="60" y="455" fill="#756b5e" font-family="monospace" font-size="22">Turn waiting into learning.</text>
+  <text x="60" y="600" fill="#201d19" font-family="monospace" font-size="17" letter-spacing="2">SHORT READS · HN · LOBSTERS · DEV · REDDIT · ENGINEERING BLOGS</text>
 </svg>
