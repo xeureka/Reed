@@ -278,13 +278,23 @@ h1 em, h2 em { color: var(--accent); font-style: italic; font-weight: 400; }
 
 body, .landing-shell, .reader-shell, .story-shell, .feature-section, .source-marquee { transition: background-color .25s ease, color .25s ease, border-color .25s ease; }
 .why-section.reveal { opacity: 1; transform: none; }
-.why-mark-stage { display: grid; width: min(28vw, 260px); place-items: center; }
-.why-logo { width: 100%; height: auto; }
+.why-mark-stage { display: grid; width: min(28vw, 360px); place-items: center; }
+.agent-gap-card { min-height: 260px; align-content: space-between; border: 1px solid var(--rule); padding: 22px; color: var(--ink); background: var(--paper-deep); box-shadow: 10px 10px 0 var(--accent); }
+.agent-gap-top, .agent-gap-bottom { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font: 9px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.agent-gap-top span:last-child { color: var(--accent); }
+.agent-gap-rule { width: 100%; height: 5px; margin: 22px 0 28px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.agent-gap-card p { margin: 0 0 28px; color: var(--ink); font: 500 clamp(2.5rem, 5vw, 4.8rem)/.88 var(--display); letter-spacing: -.07em; }
+.agent-gap-card p em { color: var(--accent); font-weight: 400; }
+.agent-gap-lines { display: grid; gap: 7px; margin-bottom: 28px; }
+.agent-gap-lines i { display: block; height: 3px; background: var(--rule); }
+.agent-gap-lines i:nth-child(1) { width: 82%; }
+.agent-gap-lines i:nth-child(2) { width: 64%; }
+.agent-gap-lines i:nth-child(3) { width: 42%; background: var(--accent); }
 ::view-transition-old(root) { animation: none; mix-blend-mode: normal; }
 ::view-transition-new(root) { animation: theme-reveal .55s ease-in-out both; mix-blend-mode: normal; }
 @keyframes theme-reveal { from { clip-path: circle(0 at var(--theme-x) var(--theme-y)); } to { clip-path: circle(var(--theme-radius) at var(--theme-x) var(--theme-y)); } }
 
-@media (max-width: 620px) { .why-mark-stage { width: 140px; } }
+@media (max-width: 620px) { .why-mark-stage { width: min(100%, 300px); } }
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }
