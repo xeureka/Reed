@@ -139,20 +139,20 @@ h1 em, h2 em { color: var(--accent); font-style: italic; font-weight: 400; }
 .feed-tab:hover, .feed-tab.active { color: var(--paper); background: var(--accent); border-color: var(--accent); }
 .feed-scroller { height: 100%; overflow-y: auto; scroll-snap-type: y mandatory; scrollbar-width: none; padding-top: 108px; }
 .feed-scroller::-webkit-scrollbar { display: none; }
-.story-slide { position: relative; display: grid; min-height: 100%; padding: 35px max(14px, 5vw) 28px; scroll-snap-align: start; }
+.story-slide { position: relative; display: grid; min-height: 100%; box-sizing: border-box; padding: 35px max(14px, 5vw) 28px; scroll-snap-align: start; }
 .story-glow { position: absolute; inset: 0; background: var(--paper); }
 .story-slide-1 .story-glow { background: color-mix(in srgb, var(--paper) 82%, var(--soft-accent)); }
 .story-slide-2 .story-glow { background: color-mix(in srgb, var(--paper) 90%, #c3d0c5); }
 .story-slide-3 .story-glow { background: color-mix(in srgb, var(--paper) 88%, #d4b9a5); }
-.story-shell { position: relative; display: flex; flex-direction: column; width: min(100%, 1120px); min-height: min(710px, 78dvh); margin: auto; border: 1px solid var(--rule); padding: clamp(20px, 4vw, 48px); background: var(--paper); }
+.story-shell { position: relative; display: flex; flex-direction: column; width: min(100%, 1120px); min-height: min(710px, 78dvh); box-sizing: border-box; margin: auto; border: 1px solid var(--rule); padding: clamp(20px, 4vw, 48px); background: var(--paper); }
 .story-meta, .story-footer, .story-details { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; color: var(--muted); font: 9px var(--mono); letter-spacing: .04em; text-transform: uppercase; }
 .story-meta { border-bottom: 1px solid var(--rule); padding-bottom: 15px; }
 .meta-time { margin-left: auto; }
-.story-content { max-width: 850px; margin: auto 0; }
-.story-kicker { display: flex; align-items: center; gap: 6px; color: var(--accent); font: 10px var(--mono); letter-spacing: .1em; }
+.story-content { max-width: 850px; min-width: 0; margin: auto 0; }
+.story-kicker { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; color: var(--accent); font: 10px var(--mono); letter-spacing: .1em; }
 .story-kicker i { width: 30px; height: 1px; margin: 0 5px; background: var(--accent); }
-.story-content h2 { max-width: 880px; margin: 22px 0 28px; color: var(--ink); font: 500 clamp(2.4rem, 6vw, 6.3rem)/.9 var(--display); letter-spacing: -.08em; }
-.story-summary { max-width: 650px; color: var(--ink); font: 20px/1.45 var(--serif); }
+.story-content h2 { max-width: 880px; margin: 22px 0 28px; color: var(--ink); font: 500 clamp(2.4rem, 6vw, 6.3rem)/.9 var(--display); letter-spacing: -.08em; overflow-wrap:anywhere; }
+.story-summary { max-width: 650px; color: var(--ink); font: 20px/1.45 var(--serif); overflow-wrap:anywhere; }
 .summary-label { display: block; margin-bottom: 9px; color: var(--accent); font: 9px var(--mono); letter-spacing: .12em; }
 .story-summary .drop-cap { float: left; margin: 9px 9px 0 0; color: var(--accent); font: 700 54px/.7 var(--display); }
 .summary-skeleton { display: block; width: min(92%, 520px); height: 72px; border: 1px solid color-mix(in srgb, var(--muted) 35%, transparent); background: linear-gradient(90deg, color-mix(in srgb, var(--muted) 10%, transparent) 25%, color-mix(in srgb, var(--muted) 24%, transparent) 50%, color-mix(in srgb, var(--muted) 10%, transparent) 75%); background-size: 200% 100%; animation: summary-shimmer 1.4s linear infinite; }
@@ -218,7 +218,7 @@ h1 em, h2 em { color: var(--accent); font-style: italic; font-weight: 400; }
   .story-shell { min-height: calc(100dvh - 167px); padding: 18px; }
   .story-content h2 { padding-right: 28px; font-size: clamp(2.2rem, 12vw, 4rem); }
   .story-summary { font-size: 17px; }
-  .story-actions { right: 14px; bottom: 30%; gap: 5px; }
+  .story-actions { position: static; flex-direction: row; justify-content: flex-end; gap: 5px; margin: 18px 0 20px; }
   .action-button { min-width: 44px; min-height: 44px; }
   .story-meta { padding-right: 25px; }
   .reader-status { display: none; }
