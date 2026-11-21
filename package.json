@@ -6,6 +6,7 @@
     "dev": "pnpm --parallel --filter ./apps/frontend --filter ./apps/backend dev",
     "dev:frontend": "pnpm --filter ./apps/frontend dev",
     "dev:backend": "pnpm --filter ./apps/backend dev",
+    "build:cloudflare": "pnpm --filter ./apps/frontend build",
     "build": "pnpm --filter ./apps/frontend build && pnpm --filter ./apps/backend build",
     "lint": "pnpm --filter ./apps/frontend lint",
     "typecheck": "pnpm --filter ./apps/frontend exec tsc --noEmit && pnpm --filter ./apps/backend exec tsc --noEmit"

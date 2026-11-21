@@ -47,6 +47,16 @@ pnpm lint
 pnpm typecheck
 ```
 
+## Cloudflare Pages
+
+The Vite frontend is configured for Cloudflare Pages with `wrangler.toml`.
+
+- Build command: `pnpm install --frozen-lockfile && pnpm build:cloudflare`
+- Build output directory: `apps/frontend/dist`
+- Add the Pages environment variable `VITE_API_URL` with the public URL of the running API.
+
+The API remains a Node/Express service because its scraper uses Node runtime libraries. Deploy it on a Node-compatible host, then point Cloudflare Pages at it with `VITE_API_URL`.
+
 ## Environment variables
 
 Create `apps/frontend/.env.local` when the API is not running on the default local port:
