@@ -248,6 +248,13 @@ h1 em, h2 em { color: var(--accent); font-style: italic; font-weight: 400; }
 .source-logo-reddit .source-brand > svg { color: #ff4500; }
 .source-logo-stack-overflow .source-brand > svg { color: #f48024; }
 .source-logo-dev .source-brand > svg { color: var(--ink); }
+.source-logo-hashnode .source-brand > svg { color: #2962ff; }
+.source-logo-cloudflare .source-brand > svg { color: #f38020; }
+.source-logo-github .source-brand > svg { color: var(--ink); }
+.source-logo-vercel .source-brand > svg { color: var(--ink); }
+.source-logo-netflix .source-brand > svg { color: #e50914; }
+.source-logo-so-blog .source-brand > svg { color: #f48024; }
+.source-logo-mozilla .source-brand > svg { color: #ff7139; }
 .more-source { flex: 0 0 auto; color: var(--accent); font: 10px var(--mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
 @keyframes source-marquee { to { transform: translateX(-50%); } }
 
