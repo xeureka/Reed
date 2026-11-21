@@ -2,9 +2,9 @@
 
 # Reed
 
-Reed is a swipeable tech-news feed for the gaps while your AI coding agent runs. Read short summaries from developer-focused sources, then open the original story when it earns your attention.
+Reed is a swipeable tech-news feed for the gaps between things. Read short summaries from developer-focused sources, then open the original story when it earns your attention.
 
-**Stop doom-scrolling. Start smart-scrolling.**
+**Turn waiting into learning.**
 
 ## Features
 
@@ -115,3 +115,5 @@ The backend is an Express/Node service because the scraper uses Node runtime lib
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, branch naming, commit conventions, testing, and pull requests.
+
+See the [roadmap](CONTRIBUTING.md#roadmap) for planned features.

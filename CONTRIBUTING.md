@@ -68,3 +68,12 @@ Open a PR against `main` with:
 - Notes about source/API limits or known fallbacks
 
 Keep the PR focused, respond to review feedback, and make sure the checks pass before requesting review.
+
+## Roadmap
+
+- [ ] Personalized feed
+- [ ] Multi-language support
+- [ ] More blogs and writing areas beyond tech
+- [ ] Mobile app
+
+Want to pick one up? Open an issue first so we can align on scope.
