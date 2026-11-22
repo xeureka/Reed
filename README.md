@@ -55,7 +55,7 @@ pnpm install
 pnpm dev
 ```
 
-The frontend runs at `http://localhost:5174`. The backend runs at `http://localhost:3001`.
+`pnpm dev` starts both apps in parallel. The frontend runs at `http://localhost:5174` and the backend runs at `http://localhost:3001`.
 
 Run the production build and checks from the repository root:
 
@@ -70,6 +70,7 @@ Useful commands:
 ```bash
 pnpm dev:frontend
 pnpm dev:backend
+pnpm dev:all
 pnpm build:cloudflare
 ```
 
@@ -106,9 +107,14 @@ Feed sources are fetched in parallel. A failing source is skipped when other sou
 
 The frontend is configured with `wrangler.toml`:
 
+Cloudflare Pages dashboard values:
+
+- Framework preset: `Vite`
+- Production branch: `main`
+- Root directory: `/`
 - Build command: `pnpm install --frozen-lockfile && pnpm build:cloudflare`
-- Output directory: `apps/frontend/dist`
-- Required Pages variable: `VITE_API_URL=<public API URL>`
+- Build output directory: `apps/frontend/dist`
+- Environment variable: `VITE_API_URL=<public API URL>`
 
 The backend is an Express/Node service because the scraper uses Node runtime libraries. Deploy it on a Node-compatible host, allow the Cloudflare Pages origin in `CORS_ORIGINS`, and set its public URL as `VITE_API_URL` in Cloudflare Pages.
 
