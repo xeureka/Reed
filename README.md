@@ -110,13 +110,24 @@ The frontend is configured with `wrangler.toml`:
 Cloudflare Pages dashboard values:
 
 - Framework preset: `Vite`
-- Production branch: `main`
+- Production branch: `feat/modern-reed-experience` (switch to `main` after merging the branch)
 - Root directory: `/`
 - Build command: `pnpm install --frozen-lockfile && pnpm build:cloudflare`
 - Build output directory: `apps/frontend/dist`
 - Environment variable: `VITE_API_URL=<public API URL>`
 
-The backend is an Express/Node service because the scraper uses Node runtime libraries. Deploy it on a Node-compatible host, allow the Cloudflare Pages origin in `CORS_ORIGINS`, and set its public URL as `VITE_API_URL` in Cloudflare Pages.
+The backend is an Express/Node service because the scraper uses Node runtime libraries. Deploy it on Render with the included `render.yaml`:
+
+- Service type: `Web Service`
+- Runtime: `Docker`
+- Dockerfile: `apps/backend/Dockerfile`
+- Docker context: repository root (`.`)
+- Health check path: `/health`
+- `CORS_ORIGINS`: your Cloudflare Pages URL, such as `https://reed.pages.dev`
+- `GEMINI_API_KEY`: optional; leave empty to use local summaries
+- `GEMINI_MODEL`: `gemini-2.0-flash-lite`
+
+After Render gives you the API URL, set `VITE_API_URL=https://your-reed-backend.onrender.com` in Cloudflare Pages and redeploy the frontend. The API and frontend do not need a database for the current feature set.
 
 ## Contributing
 
