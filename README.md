@@ -41,7 +41,7 @@ Reed is a swipeable tech-news feed for the gaps between things. Read short summa
 ├── render.yaml                 # Optional Node backend deployment config
 ├── tsconfig.json
 ├── pnpm-workspace.yaml
-└── wrangler.toml               # Cloudflare Pages configuration
+└── apps/frontend/wrangler.jsonc # Cloudflare Worker static-assets configuration
 ```
 
 ## Local setup
@@ -103,17 +103,16 @@ Without `GEMINI_API_KEY`, Reed uses the local extractive summarizer and the feed
 
 Feed sources are fetched in parallel. A failing source is skipped when other sources return stories. Article scraping has timeouts, size limits, fallback excerpts, and SSRF protection.
 
-## Cloudflare Pages deployment
+## Cloudflare deployment
 
-The frontend is configured with `wrangler.toml`:
+The frontend is configured as a Cloudflare Worker with static assets in `apps/frontend/wrangler.jsonc`:
 
 Cloudflare Pages dashboard values:
 
 - Framework preset: `Vite`
-- Production branch: `feat/modern-reed-experience` (switch to `main` after merging the branch)
-- Root directory: `/`
 - Build command: `pnpm install --frozen-lockfile && pnpm build:cloudflare`
-- Build output directory: `apps/frontend/dist`
+- Deploy command: `pnpm deploy:cloudflare`
+- Worker name: `reed-frontend`
 - Environment variable: `VITE_API_URL=<public API URL>`
 
 The backend is an Express/Node service because the scraper uses Node runtime libraries. Deploy it on Render with the included `render.yaml`:
