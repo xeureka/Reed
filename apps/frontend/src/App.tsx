@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Analytics } from '@vercel/analytics/react';
 import { ArrowRight, ArrowUpRight, BookOpenText, Keyboard, Lightning, List, ShareNetwork, Stack, X } from '@phosphor-icons/react';
 import HNReels from './components/HNReels';
 import { BrandLogo } from './components/BrandLogo';
@@ -76,7 +75,7 @@ function App() {
   useEffect(() => { const syncRoute = () => setIsReader(window.location.hash === '#read'); window.addEventListener('hashchange', syncRoute); return () => window.removeEventListener('hashchange', syncRoute); }, []);
   useEffect(() => { const saved = localStorage.getItem('reed-theme'); document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light'; }, []);
   const openReader = () => { window.location.hash = 'read'; setIsReader(true); };
-  return <><>{isReader ? <HNReels onBack={() => { window.location.hash = ''; setIsReader(false); }} /> : <Landing onStart={openReader} />}</><Analytics /></>;
+  return <>{isReader ? <HNReels onBack={() => { window.location.hash = ''; setIsReader(false); }} /> : <Landing onStart={openReader} />}</>;
 }
 
 export default App;

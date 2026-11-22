@@ -13,7 +13,6 @@
     "@phosphor-icons/react": "^2.1.10",
     "@tailwindcss/vite": "^4.1.12",
     "@tanstack/react-query": "^5.108.0",
-    "@vercel/analytics": "^1.5.0",
     "axios": "^1.11.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
