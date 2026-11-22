@@ -2,9 +2,9 @@
 
 # Reed
 
-Reed is a swipeable tech-news feed for the gaps while your AI coding agent runs. Read short summaries from developer-focused sources, then open the original story when it earns your attention.
+Reed is a swipeable tech-news feed for the gaps between things. Read short summaries from developer-focused sources, then open the original story when it earns your attention.
 
-**Stop doom-scrolling. Start smart-scrolling.**
+**Turn waiting into learning.**
 
 ## Features
 
@@ -55,7 +55,7 @@ pnpm install
 pnpm dev
 ```
 
-The frontend runs at `http://localhost:5174`. The backend runs at `http://localhost:3001`.
+`pnpm dev` starts both apps in parallel. The frontend runs at `http://localhost:5174` and the backend runs at `http://localhost:3001`.
 
 Run the production build and checks from the repository root:
 
@@ -70,6 +70,7 @@ Useful commands:
 ```bash
 pnpm dev:frontend
 pnpm dev:backend
+pnpm dev:all
 pnpm build:cloudflare
 ```
 
@@ -106,12 +107,30 @@ Feed sources are fetched in parallel. A failing source is skipped when other sou
 
 The frontend is configured with `wrangler.toml`:
 
-- Build command: `pnpm install --frozen-lockfile && pnpm build:cloudflare`
-- Output directory: `apps/frontend/dist`
-- Required Pages variable: `VITE_API_URL=<public API URL>`
+Cloudflare Pages dashboard values:
 
-The backend is an Express/Node service because the scraper uses Node runtime libraries. Deploy it on a Node-compatible host, allow the Cloudflare Pages origin in `CORS_ORIGINS`, and set its public URL as `VITE_API_URL` in Cloudflare Pages.
+- Framework preset: `Vite`
+- Production branch: `feat/modern-reed-experience` (switch to `main` after merging the branch)
+- Root directory: `/`
+- Build command: `pnpm install --frozen-lockfile && pnpm build:cloudflare`
+- Build output directory: `apps/frontend/dist`
+- Environment variable: `VITE_API_URL=<public API URL>`
+
+The backend is an Express/Node service because the scraper uses Node runtime libraries. Deploy it on Render with the included `render.yaml`:
+
+- Service type: `Web Service`
+- Runtime: `Docker`
+- Dockerfile: `apps/backend/Dockerfile`
+- Docker context: repository root (`.`)
+- Health check path: `/health`
+- `CORS_ORIGINS`: your Cloudflare Pages URL, such as `https://reed.pages.dev`
+- `GEMINI_API_KEY`: optional; leave empty to use local summaries
+- `GEMINI_MODEL`: `gemini-2.0-flash-lite`
+
+After Render gives you the API URL, set `VITE_API_URL=https://your-reed-backend.onrender.com` in Cloudflare Pages and redeploy the frontend. The API and frontend do not need a database for the current feature set.
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, branch naming, commit conventions, testing, and pull requests.
+
+See the [roadmap](CONTRIBUTING.md#roadmap) for planned features.

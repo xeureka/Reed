@@ -1,11 +1,14 @@
 import { Moon, Sun } from '@phosphor-icons/react';
 import { useEffect, useRef, useState } from 'react';
+import { useThemeSound } from '../hooks/useThemeSound';
 
 export function ThemeToggle() {
   const [dark, setDark] = useState(() => localStorage.getItem('reed-theme') === 'dark' || document.documentElement.dataset.theme === 'dark');
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const playThemeSound = useThemeSound();
   useEffect(() => { document.documentElement.dataset.theme = dark ? 'dark' : 'light'; localStorage.setItem('reed-theme', dark ? 'dark' : 'light'); }, [dark]);
   const toggleTheme = () => {
+    playThemeSound();
     const nextDark = !dark;
     const button = buttonRef.current;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -1,0 +1,100 @@
+export const landingContent = {
+  meta: {
+    title: 'Reed — Scroll less. Read more.',
+    description: 'Reed is a TikTok-style feed for reading. Swap doomscrolling for short, good reads while you wait, commute, or sit through a slow class.',
+    headline: 'Scroll less. Read more. — Reed',
+  },
+  masthead: {
+    issue: 'Vol. 1 · No. 47',
+    edition: 'Thursday · Reed Press',
+    tagline: 'Turn waiting into learning.',
+  },
+  nav: {
+    wait: 'The wait',
+    how: 'How it works',
+    sources: 'Sources',
+    openFeed: 'Open the feed',
+    startReading: 'Start reading',
+    seeHow: 'See how it works',
+  },
+  hero: {
+    headline: ['Scroll less.', 'Read more.'],
+    subline: 'Reed is a feed built for reading. Same swipe, better minutes.',
+    previewLabel: 'A READING FEED FOR THE IN-BETWEEN',
+    previewKicker: 'WHEN YOU HAVE A MINUTE',
+    previewTitle: 'The best ideas deserve more than a headline.',
+    previewSummary: 'Reed gives useful stories room to breathe, then lets you decide whether they’re worth the full read.',
+    edition: 'REED / READING EDITION',
+    issue: '01 / 05',
+    source: 'HACKER NEWS',
+    readTime: '4 MIN READ',
+    swipe: 'SWIPE ↓',
+  },
+  wait: {
+    eyebrow: 'THE WAIT PROBLEM',
+    title: ['Don’t kill the wait.', 'Use it.'],
+    lines: ['In line. You open a feed.', 'A few minutes later, you have seen everything and kept nothing.', 'The moment ends. Your time should leave something behind.'],
+  },
+  gap: {
+    eyebrow: 'FITS THE GAP',
+    title: ['Read in the', 'in-between.'],
+    deck: 'Short reads for the minutes between places, plans, and progress. Pick up a card. Put it down when life moves.',
+    lengths: [
+      ['30 SEC', '1 card', 'A quick signal between stops.'],
+      ['2 MIN', '5 cards', 'Enough context for a coffee refill.'],
+      ['10 MIN', 'Deep read', 'Stay a while. Follow a thread.'],
+    ],
+  },
+  how: {
+    eyebrow: 'HOW IT WORKS',
+    title: ['Open Reed', 'anywhere.'],
+    steps: [
+      ['Open Reed anywhere.', 'No setup. Just open the feed.'],
+      ['Swipe through short reads.', 'One story at a time. Keep what stays with you.'],
+      ['Close it knowing something new.', 'A better use of the minutes you already had.'],
+    ],
+  },
+  sources: {
+    label: 'Real tech news, not random content.',
+    names: ['Hacker News', 'Lobsters', 'DEV Community', 'Hashnode', 'Reddit', 'Stack Overflow', 'Cloudflare', 'GitHub', 'Vercel', 'Netflix', 'SO Blog', 'Mozilla'],
+  },
+  features: {
+    eyebrow: 'IN THIS ISSUE',
+    title: ['A better use', 'of your thumb.'],
+    deck: 'Your thumb already knows how to scroll. Give it something to read.',
+    items: [
+      ['Made for in-between moments.', "Queues, commutes, lectures, loading bars. The minutes you’d lose to a feed, spent on something worth keeping."],
+      ['One swipe, one idea.', 'Short reads, one at a time. No clutter, no infinite noise, just the next thing worth knowing.'],
+      ['Scroll that gives something back.', 'Same thumb, same habit. You finish with a thought instead of a headache.'],
+      ['Learn in the gaps.', 'Ten minutes between builds. Five while the bus is late. It adds up.'],
+    ],
+  },
+  about: {
+    eyebrow: 'BUILT BY A READER',
+    title: ['I wanted my', 'minutes back.'],
+    body: 'I made Reed for the ordinary gaps that turn into ordinary scrolling. It is a small reading desk for getting something good out of the time between things.',
+    link: 'Meet Eureka on GitHub',
+  },
+  roadmap: {
+    eyebrow: 'WHAT’S NEXT',
+    title: ['More to', 'come.'],
+    badge: 'SOON',
+    items: [
+      ['Personalized feed', 'A feed that learns what you like to read.'],
+      ['Multi-language support', 'Read in the language you think in.'],
+      ['Beyond tech', 'Essays, stories, science, history and more, from more writers.'],
+      ['Mobile app', 'Reed in your pocket, for the moments that matter.'],
+    ],
+  },
+  final: {
+    eyebrow: 'THE NEXT EDITION IS WAITING',
+    title: ['Your next minute', 'could be better.'],
+    share: 'Share Reed',
+    copied: 'Link copied',
+  },
+  footer: {
+    copyright: '© 2026 Reed Press',
+    creator: 'Made By Eureka',
+    note: 'Made for the in-between',
+  },
+} as const;

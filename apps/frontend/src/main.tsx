@@ -5,6 +5,8 @@ import './index.css'
 import './App.css'
 import App from './App.tsx'
 
+document.documentElement.classList.add('js');
+
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 2, refetchOnReconnect: true } },
 });

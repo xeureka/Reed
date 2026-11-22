@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: blog-aggregator-backend
+    name: reed-backend
     env: docker
     docker:
       dockerfile: ./apps/backend/Dockerfile
@@ -10,6 +10,12 @@ services:
         value: production
       - key: PORT
         value: 3000
+      - key: CORS_ORIGINS
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.0-flash-lite
     plan: free
     numInstances: 1
     healthCheckPath: /health

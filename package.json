@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "install:all": "pnpm install",
-    "dev": "pnpm --parallel --filter ./apps/frontend --filter ./apps/backend dev",
+    "dev": "pnpm run dev:all",
+    "dev:all": "pnpm --parallel --filter ./apps/frontend --filter ./apps/backend dev",
     "dev:frontend": "pnpm --filter ./apps/frontend dev",
     "dev:backend": "pnpm --filter ./apps/backend dev",
     "build:cloudflare": "pnpm --filter ./apps/frontend build",
